@@ -1,0 +1,82 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <chrono>
+#include <iomanip>
+
+using namespace std;
+
+void log(const string& message) {
+	auto now = chrono::system_clock::now();
+	auto in_time_t = chrono::system_clock::to_time_t(now);
+	struct tm timeinfo;
+	localtime_s(&timeinfo, &in_time_t);
+
+	ofstream logfile("log.txt", ios::app); // Открытие файла для записи 
+	if (logfile.is_open()) {
+		logfile << put_time(&timeinfo, "%d-%m-%Y %H-%M-%S") << " " << message << endl;
+		logfile.close();
+	}
+	else {
+		cerr << "Ошибка открытия log-файла!" << endl;
+	}
+}
+
+int main() {
+	log("Программа запущена.");
+
+	int N, k;
+	cout << "Введите максимальное число, которое можно загадать: ";
+	cin >> N;
+	log("Введена верхняя граница: " + to_string(N));
+
+	cout << "Введите количество попыток, за которое вы хотите угадать число: ";
+	cin >> k;
+	log("Введено количество попыток: " + to_string(k));
+
+	// Проверка на корректность введенного числа
+	if (N <= 0 || k <= 0) {
+		cout << "Пожалуйста, введите положительные числа." << endl;
+		log("Некорректные значения N или k.");
+		return 1;
+	}
+
+	// Функция rand, используемая для генерации чисел, seed - начальное значение
+	srand(time(0));
+	int M = rand() % N + 1; // M - загаданное компьютером число
+	log("Компьютер загадал число: " + to_string(M)); 
+
+	cout << "Компьютер загадал число от 1 до " << N << ". У вас " << k << " попыток, чтобы его отгадать." << endl;
+	log("Компьютер загадал число от 1 до " + to_string(N) + ". У игрока " + to_string(k) + " попыток, чтобы отгадать число.");
+
+	for (int i = 0; i < k; i++) {
+		int L;
+		cout << "Попытка " << i + 1 << ": Как думаете, какое число загадал компьютер? ";
+		cin >> L; // L - предполагаемое пользователем число
+		log("Попытка " + to_string(i + 1) + ": Пользователь ввёл число: " + to_string(L));
+
+		if (L == M) {
+			cout << "Вы угадали! Комьпютер загадал число " << M << endl;
+			log("Пользователь угадал число.");
+			return 0;
+		}
+		else {
+			cout << "Неправильно. ";
+			if (L < M) {
+				cout << "Загаданное число больше введенного вами." << endl;
+				log("Введенное число меньше загаданного.");
+			}
+			else {
+				cout << "Загаданное число меньше введенного вами." << endl;
+				log("Введенное число больше загаданного.");
+			}
+		}
+	}
+
+	cout << "Попытки закончились. Компьютер загадал число " << M << endl;
+	log("Попытки закончились. Компьютер загадал число " + to_string(M));
+
+	log("Программа завершена");
+
+	return 0;
+}
