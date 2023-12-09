@@ -7,5 +7,5 @@
 # Скриншоты тестов
 ![Alt-текст](https://github.com/tbogolyubov/Laboratory-work-10/blob/main/%D1%82%D0%B5%D1%81%D1%821.png)
 ![Alt-текст](https://github.com/tbogolyubov/Laboratory-work-10/blob/main/%D1%82%D0%B5%D1%81%D1%822.png)
-Программа работает только с положительными числами. Если ввести отрицательные значения, на экран будет выведено сообщение об ошбике:
+Программа работает только с положительными числами. Если ввести отрицательные значения, на экран будет выведено сообщение об ошибке:
 ![Alt-текст](https://github.com/tbogolyubov/Laboratory-work-10/blob/main/%D1%82%D0%B5%D1%81%D1%823.png)
