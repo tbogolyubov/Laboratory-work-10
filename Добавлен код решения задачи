@@ -3,6 +3,7 @@
 #include <fstream>
 #include <chrono>
 #include <iomanip>
+#include <locale.h>
 
 using namespace std;
 
@@ -23,6 +24,7 @@ void log(const string& message) {
 }
 
 int main() {
+	setlocale(LC_ALL, "Russian");
 	log("Программа запущена.");
 
 	int N, k;
